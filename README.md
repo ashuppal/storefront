@@ -33,4 +33,4 @@ Other components (products, etc) might need to reference this.
 Create unit tests for all of the reducers and actions.
 
 
-![UML](./src/assets/uml.png)
+![](./src/assets/uml.png)
