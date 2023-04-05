@@ -1,16 +1,17 @@
-//second step is to create a store using the createStore function from the redux library. The createStore function takes a reducer function as a parameter. The store is created in the src/store/index.jsx file.
-
-import { legacy_createStore as createStore, combineReducers } from 'redux';
-
+// import reducer from './reducer';
+import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
-
-import reducer from './reducer';
+import productsReducer from './products';
+import categoryReducer from './categories';
+import cartReducer from './cart';
+import thunk from './middleware';
 
 let reducers = combineReducers({
-  products : reducer,
-})
+  products: productsReducer,
+  category: categoryReducer,
+  cart: cartReducer,
+});
 
+const store = () => createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
-const store = () => createStore(reducers, composeWithDevTools());
-
-export default store(); //after calling this here call it in the index.js in Provider
+export default store();
