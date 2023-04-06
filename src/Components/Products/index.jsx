@@ -1,27 +1,63 @@
-
-//after the category is done - this step
-//import { connect } from "react-redux";
-import { Card } from "@mui/material";
-import { addItem } from "../../store/actions";
-import { Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-
+import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProduct, removeItem } from '../../store/actions';
 
 const Products = () => {
-  const dispatch = useDispatch();
   const { products } = useSelector(state => state);
-  const { activeCategory } = useSelector(state => state.category);
-
+  const { activeCategory } = useSelector(state => state.categories)
+  const dispatch = useDispatch();
+  // const { activeCategory } = categories;
   return (
     <>
-      {activeCategory && products.map((product, index) => (
-        <Card data-testid={`product-${index}`} key={`product-${index}`} variant="outlined">
-          {product.name}
-          <Button variant="text" onClick={() => dispatch(addItem(product))}>Add Item</Button>
-        </Card>
-      ))}
+      {
+        activeCategory && <h2>{activeCategory.displayName}</h2>
+      }
+      {
+        activeCategory && <p>{activeCategory.description}</p>
+      }
+
+      {activeCategory && <Container maxWidth="md">
+        <Grid container spacing={4}>
+          {products.map((product) => (
+            <Grid item key={product.name} xs={12} sm={6} md={4}>
+              <Card >
+                <CardMedia
+                  component="img"
+                  image={`https://source.unsplash.com/random?${product.name}`}
+                  title={product.name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {product.name}
+                  </Typography>
+                  <Typography>
+                    insert product.description
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    size="small"
+                    onClick={() => dispatch(addProduct(product))}
+                  >
+                    Add to Cart
+                  </Button>
+                  <Button size="small" onClick={()=> dispatch(removeItem(product))}>Remove item</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>}
     </>
   )
+
 };
+
+// const mapStateToProps = ({ store }) => {
+//   return {
+//     products: store.products,
+//     activeCategory: store.activeCategory,
+//   }
+// }
 
 export default Products;
