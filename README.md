@@ -27,10 +27,14 @@ Create a reducer that will filter the products list based on the active category
 Active Category
 State should store active category.
 Other components (products, etc) might need to reference this.
+As a user, I want to see a full detail view of a product so that I can make a more informed choice about purchasing it.
+As a user, I want to view my full cart and initiate the checkout process so that I can purchase my items and have them delivered.
 
 
 #### Testing
 Create unit tests for all of the reducers and actions.
+
+
 
 UML
 
