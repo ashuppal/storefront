@@ -1,28 +1,22 @@
-let initialState = {
-  categories: [
-    { name: 'electronics', displayName: 'Electronics', description: 'Electronics are cool.' },
-    { name: 'food', displayName: 'Food', description: 'Food is cool.'},
-    { name: 'clothing', displayName: 'Clothing', description: 'Clothing is cool.' },
-  ],
-  activeCategory: ''
-};
+import { createSlice } from '@reduxjs/toolkit';
 
-const categoryReducer = (state=initialState, action) => {
-  const { type, payload } = action;
-
-  switch(type){
-    case 'SET':
-      return {
-        ...state,
-        activeCategory: payload,
-      };
-    case 'RESET':
-      return initialState;
-    default: 
-      return state;
+const categorySlice = createSlice({
+  name: 'categories',
+  initialState: {
+    categories: [],
+    activeCategory: '',
+  },
+  reducers: {
+    setCategory: (state, action) => {
+      state.activeCategory = action.payload.name;
+    },
+    initialSetCategories: (state, action) => {
+      state.categories = action.payload;
+    }
   }
-};
 
+});
 
+export const { setCategory, initialSetCategories } = categorySlice.actions;
+export default categorySlice.reducer;
 
-export default categoryReducer;
